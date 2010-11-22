@@ -7,7 +7,8 @@ module Mongoid #:nodoc:
           hsh = {}
           self.each_pair do |k,v|
             if k.class == Mongoid::Criterion::Complex
-              hsh[k.key] = {"$#{k.operator}" => v}
+              hsh[k.key] ||= {}
+              hsh[k.key].merge!({"$#{k.operator}" => v})
             else
               hsh[k] = v
             end

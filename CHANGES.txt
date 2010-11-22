@@ -1,0 +1,2 @@
+Fix bug when multiple condition on one column. 
+  Like Model.where(:age.gt => 40, :age.lt => 80)
