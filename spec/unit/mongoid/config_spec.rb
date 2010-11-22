@@ -278,4 +278,46 @@ describe Mongoid::Config do
     end
   end
 
+ 
+  describe "#reconnect!" do
+
+    context "with non-lazy reconnection option" do
+      before do
+        @connection = mock
+        @master = mock
+        config.expects(:master).returns(@master)
+        @master.expects(:connection).returns(@connection)
+      end
+
+      context "default" do
+        it "reconnects on the master connection" do
+          @connection.expects(:connect).returns(true)
+          config.reconnect!
+        end
+      end
+
+      context "now=true" do
+        it "reconnects on the master connection" do
+          @connection.expects(:connect).returns(true)
+          config.reconnect!(true)
+        end
+      end
+    end
+
+    context "with lazy reconnection option" do
+      before do
+        @master = mock
+        config.stubs(:master).returns(@master)
+      end
+
+      it "sets a reconnection flag" do
+        @master.expects(:connection).never
+        config.reconnect!(false)
+        config.instance_variable_get(:@reconnect).should be_true
+      end
+    end
+
+  end
+
+
 end

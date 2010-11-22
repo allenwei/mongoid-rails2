@@ -121,6 +121,23 @@ module Mongoid #:nodoc
       end
     end
 
+    # Convenience method for connecting to the master database after forking a
+    # new process.
+    #
+    # Example:
+    #
+    # <tt>Mongoid.reconnect!</tt>
+    def reconnect!(now = true)
+      if now
+        master.connection.connect
+      else
+        # We set a @reconnect flag so that #master knows to reconnect the next
+        # time the connection is accessed.
+        @reconnect = true
+      end
+    end
+    
+
     # Reset the configuration options to the defaults.
     #
     # Example:
