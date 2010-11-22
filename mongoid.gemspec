@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 require "mongoid/version"
 
 Gem::Specification.new do |s|
-  s.name        = "mongoid"
+  s.name        = "mongoid-rails2"
   s.version     = Mongoid::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Durran Jordan"]
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency(%q<rspec>, ["= 1.3.0"])
   s.add_development_dependency(%q<mocha>, ["= 0.9.8"])
+  s.add_development_dependency("bson_ext", ["~> 1.1.2"])
 
   s.files        = Dir.glob("lib/**/*") + %w(MIT_LICENSE README.rdoc)
   s.require_path = 'lib'
